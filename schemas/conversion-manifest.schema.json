@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dotnet-to-go:conversion-manifest-schema",
+  "title": "Conversion manifest",
+  "type": "object",
+  "required": ["schemaVersion", "allowInferredContract", "inputs", "tooling", "routes", "approvals"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "allowInferredContract": { "type": "boolean" },
+    "inputs": {
+      "type": "object",
+      "required": ["sourcePath", "sourceFingerprint", "templatePath", "templateFingerprint", "specPaths"],
+      "additionalProperties": false,
+      "properties": {
+        "sourcePath": { "type": "string" },
+        "sourceFingerprint": { "type": "string" },
+        "templatePath": { "type": "string" },
+        "templateFingerprint": { "type": "string" },
+        "specPaths": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "specFingerprints": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "tooling": {
+      "type": "object",
+      "required": ["agentVersion", "skillVersions"],
+      "additionalProperties": false,
+      "properties": {
+        "agentVersion": { "type": "string" },
+        "skillVersions": { "type": "object", "additionalProperties": { "type": "string" } },
+        "validationCommands": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["routeId", "method", "path", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "routeId": { "type": "string" },
+          "method": { "type": "string" },
+          "path": { "type": "string" },
+          "status": { "enum": ["proposed", "planned", "approved", "implemented", "blocked", "validated"] },
+          "targetDatastore": { "type": "string" },
+          "artifacts": { "type": "array", "items": { "type": "string" } },
+          "blockers": { "type": "array", "items": { "type": "string" } },
+          "validation": { "type": "object", "additionalProperties": true }
+        }
+      }
+    },
+    "approvals": {
+      "type": "object",
+      "required": ["analysis", "plan", "implementation"],
+      "additionalProperties": false,
+      "properties": {
+        "analysis": { "type": "string" },
+        "plan": { "type": "string" },
+        "implementation": { "type": "string" }
+      }
+    }
+  }
+}

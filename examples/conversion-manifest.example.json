@@ -1,0 +1,39 @@
+{
+  "$schema": "../schemas/conversion-manifest.schema.json",
+  "schemaVersion": "1.0.0",
+  "inputs": {
+    "sourcePath": "../inputs/dotnet-api",
+    "sourceFingerprint": "sha256:replace-with-content-hash",
+    "templatePath": "../inputs/go-template",
+    "templateFingerprint": "sha256:replace-with-content-hash",
+    "specPaths": ["../inputs/openapi.json"],
+    "specFingerprints": ["sha256:replace-with-content-hash"]
+  },
+  "tooling": {
+    "agentVersion": "1.0.0",
+    "skillVersions": {
+      "dotnet-source-analysis": "1.0.0",
+      "go-template-profile": "1.0.0",
+      "dotnet-to-go-planning": "1.0.0",
+      "api-route-conversion": "1.0.0",
+      "api-parity-validation": "1.0.0"
+    },
+    "validationCommands": ["go test ./...", "go vet ./..."]
+  },
+  "routes": [
+    {
+      "routeId": "orders.get-by-id",
+      "method": "GET",
+      "path": "/api/orders/{id}",
+      "status": "proposed",
+      "targetDatastore": "sql-server-existing",
+      "artifacts": [],
+      "blockers": []
+    }
+  ],
+  "approvals": {
+    "analysis": "pending",
+    "plan": "pending",
+    "implementation": "pending"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dotnet-to-go:route-artifact-schema",
+  "title": "Route artifact",
+  "type": "object",
+  "required": ["routeId", "evidence", "decisions", "acceptanceCriteria", "scopeReport"],
+  "additionalProperties": false,
+  "properties": {
+    "routeId": { "type": "string" },
+    "evidence": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "decisions": { "type": "array", "items": { "type": "string" } },
+    "acceptanceCriteria": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "scopeReport": { "type": "string", "minLength": 1 },
+    "blockers": { "type": "array", "items": { "type": "string" } },
+    "parity": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["not-run", "passed", "failed", "blocked"] },
+        "fixturePaths": { "type": "array", "items": { "type": "string" } },
+        "reportPath": { "type": "string" }
+      }
+    }
+  }
+}
