@@ -1,6 +1,14 @@
 {
   "$schema": "../schemas/conversion-manifest.schema.json",
   "schemaVersion": "1.0.0",
+  "allowInferredContract": false,
+  "projectName": "orders-go",
+  "generation": {
+    "serverCommand": "make gen-server",
+    "databaseStrategy": "postgresql-sqlc",
+    "databaseCommand": "make gen-db",
+    "architecture": "hexagonal-template-aligned"
+  },
   "inputs": {
     "sourcePath": "../inputs/dotnet-api",
     "sourceFingerprint": "sha256:replace-with-content-hash",

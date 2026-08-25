@@ -3,11 +3,28 @@
   "$id": "urn:dotnet-to-go:conversion-manifest-schema",
   "title": "Conversion manifest",
   "type": "object",
-  "required": ["schemaVersion", "allowInferredContract", "inputs", "tooling", "routes", "approvals"],
+  "required": ["schemaVersion", "allowInferredContract", "projectName", "inputs", "tooling", "routes", "approvals"],
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": { "properties": { "allowInferredContract": { "const": false } } },
+      "then": { "properties": { "inputs": { "properties": { "specPaths": { "minItems": 1 } } } } }
+    }
+  ],
   "properties": {
     "schemaVersion": { "type": "string" },
     "allowInferredContract": { "type": "boolean" },
+    "projectName": { "type": "string", "minLength": 1 },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "serverCommand": { "type": "string" },
+        "databaseStrategy": { "enum": ["none", "postgresql-sqlc", "sql-server-native"] },
+        "databaseCommand": { "type": "string" },
+        "architecture": { "const": "hexagonal-template-aligned" }
+      }
+    },
     "inputs": {
       "type": "object",
       "required": ["sourcePath", "sourceFingerprint", "templatePath", "templateFingerprint", "specPaths"],
@@ -17,7 +34,7 @@
         "sourceFingerprint": { "type": "string" },
         "templatePath": { "type": "string" },
         "templateFingerprint": { "type": "string" },
-        "specPaths": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "specPaths": { "type": "array", "items": { "type": "string" } },
         "specFingerprints": { "type": "array", "items": { "type": "string" } }
       }
     },
@@ -41,7 +58,7 @@
           "routeId": { "type": "string" },
           "method": { "type": "string" },
           "path": { "type": "string" },
-          "status": { "enum": ["proposed", "planned", "approved", "implemented", "blocked", "validated"] },
+          "status": { "enum": ["discovered", "selected", "proposed", "planned", "approved", "implemented", "blocked", "validated"] },
           "targetDatastore": { "type": "string" },
           "artifacts": { "type": "array", "items": { "type": "string" } },
           "blockers": { "type": "array", "items": { "type": "string" } },

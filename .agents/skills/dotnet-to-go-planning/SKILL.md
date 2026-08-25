@@ -5,16 +5,20 @@ description: Build an approved route-scoped .NET-to-Go conversion plan from sour
 
 # Plan .NET-to-Go Conversion
 
-Use the analysis artifact and Template profile. Present a route selection table keyed by canonical `routeId`. For every selected Route, decide and record:
+Use the analysis artifact and Template profile. Present a route catalog keyed by canonical `routeId`, showing `operationId`, method, path, current status, dependencies, and blockers. Ask the user to select the next Route from routes that are not `validated`. Present one route plan at a time. For every selected Route, decide and record:
 
 - contract and type mappings;
 - handler, service, repository, middleware, and configuration mappings;
 - auth/claims/roles mapping;
 - `target datastore`: `sql-server-existing` or a named new datastore;
+- projectName derived from outputPath and all project-owned rename targets;
+- OpenAPI generation plan using the template's `gen-server` command;
+- database generation/access plan: PostgreSQL uses `gen-db`/sqlc, SQL Server uses the template's normal access path;
+- hexagonal placement for domain/application, ports, inbound adapters, outbound adapters, and composition root;
 - schema mapping, migration scripts, data migration plan, and compatibility/read strategy;
 - external dependencies, transactional behavior, idempotency, and observability;
 - implementation files, tests, Parity fixtures, acceptance criteria, risks, and Blockers.
 
 Separate decisions from evidence. Require explicit resolution for source/spec conflicts and unsupported features. Keep data migration as a plan; do not perform it during route conversion.
 
-Completion: each selected Route has an approved plan, target datastore, evidence references, acceptance criteria, and no unresolved decision hidden in prose.
+Completion: the selected Route has an approved plan, target datastore, evidence references, acceptance criteria, and no unresolved decision hidden in prose; the manifest records the remaining route queue.

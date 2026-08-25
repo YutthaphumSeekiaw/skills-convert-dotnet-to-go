@@ -9,6 +9,6 @@ Run the exact formatter, linter, static analysis, build, and test commands from 
 
 Compare observable behavior: HTTP status, headers, serialized body, validation failures, error contract, auth outcomes, declared datastore reads/writes, transaction outcome, external side effects, and idempotency. Ignore implementation details such as class names and generated SQL text unless they change an observable result.
 
-Record commands, versions, fixture paths, redacted outputs, failures, and environment assumptions. A failed check is a Blocker until fixed or explicitly accepted. Never claim parity from compilation alone. Update the Parity report and manifest status.
+Record commands, versions, fixture paths, redacted outputs, failures, and environment assumptions. A failed check is a Blocker until fixed or explicitly accepted. Never claim parity from compilation alone. Update the Parity report and manifest status, then reload the Conversion manifest and present completed Routes separately from remaining Routes so the user can select the next Route in the same output workspace.
 
-Completion: the Route is `validated` only when all required checks and fixtures pass; otherwise it is `blocked` with reproducible evidence.
+Completion: the Route is `validated` only when all required checks and fixtures pass; otherwise it is `blocked` with reproducible evidence. The next-route queue is shown after the status update.
